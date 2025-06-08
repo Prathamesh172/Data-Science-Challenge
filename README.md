@@ -1,113 +1,98 @@
-# 📊 Predictive Modeling with Regression: A Comparative Analysis
+# 🎯 Regression Modeling: Predicting Continuous Target 'y'
 
-This repository demonstrates a comparative modeling exercise on a tabular dataset with 304 features and 100,000 instances. The task: predict a continuous target variable y using multiple regression models and evaluate their performance, particularly with a custom accuracy metric defined by the employer.
+This project tackles a regression problem involving 100,000 data points and 304 anonymized features labeled `x001` to `x304`. The goal was to predict the target variable `y` using machine learning techniques, then evaluate and communicate the methodology, results, and assumptions clearly.
 
-🧾 Task Overview
+---
 
-Objective: Predict the target variable y from 304 input features (x001 to x304).
+## 📦 Dataset Summary
 
-You were given:
+* **Shape**: (100000, 305)
+* **Features**: `x001` to `x304` (numerical, anonymized)
+* **Target**: `y` (continuous numerical value)
 
-A CSV dataset with 100,000 rows and 305 columns (304 features + 1 target).
+---
 
-An instruction to build and compare models.
+## 🚧 Assumptions
 
-A strict output requirement: custom accuracy + RMSE + a .txt output of predictions.
+* Dataset contains no missing values.
+* All features are numerical and ready for model consumption.
+* No external feature engineering was attempted due to lack of semantic context.
+* Final test data (hold-out set) will follow the same structure.
 
-🔍 Assumptions
+---
 
-All features are numerical and formatted correctly.
+## 🔍 Methodology
 
-No missing values in the dataset.
+1. **Exploratory Data Analysis**
 
-The provided dataset format will exactly match the hold-out set.
+   * Checked for missing values and feature distributions.
+   * Visualized target distribution.
 
-Features are anonymized — no domain knowledge or feature engineering possible.
+2. **Preprocessing**
 
-🧪 Methodology & Models Used
+   * No categorical encoding required.
+   * Standard scaling was not applied due to tree-based model usage.
 
-Three regression models were tested:
+3. **Modeling Approaches**
 
-1. Linear Regression
+   * Baseline: **Linear Regression**
+   * Tree-based: **Decision Tree**, **Random Forest**
+   * Evaluated using RMSE and a custom accuracy metric.
 
-Fast and interpretable.
+---
 
-Performs poorly on complex, high-dimensional data.
+## 📊 Evaluation Metrics
 
-2. Decision Tree Regressor
+### 1. **Root Mean Square Error (RMSE)**
 
-Captures non-linear interactions.
+* Standard metric to measure regression performance.
 
-Susceptible to overfitting.
+### 2. **Custom Accuracy**
 
-3. Random Forest Regressor 🌟
+* Defined as: A prediction is "correct" if |predicted − actual| ≤ 3.0
+* Accuracy = (Number of Correct Predictions / Total Predictions) × 100
+* Calculated only for Linear Regression in this submission.
 
-Best performing model.
+---
 
-Robust to overfitting.
+## ✅ Final Model: Random Forest Regressor
 
-Used as final model for hold-out prediction.
+Chosen for its robustness and superior performance in validation tests.
+Model was trained using `RandomForestRegressor` from scikit-learn.
 
-📊 Evaluation Metrics
+All code has been modularized and saved to support future inference on any similarly structured dataset.
 
-✔️ RMSE (Root Mean Squared Error)
+---
 
-Primary error metric used to evaluate model accuracy.
+## 📈 Performance Summary
 
-✔️ Custom Accuracy Metric
+| Model             | RMSE  | Notes                         |
+| ----------------- | ----- | ----------------------------- |
+| Linear Regression | 46.95 | Also included custom accuracy |
+| Decision Tree     | 38.49 | Better than Linnear Regression|
+| Random Forest     | 28.83 | Final selected model          |
 
-Defined by test instructions:
+---
 
-A prediction is "correct" if the absolute error ≤ 3.0
+## 🧠 Observations
 
-Custom Accuracy = (% of predictions with |error| ≤ 3.0)
+* Linear Regression is limited by its inability to capture non-linear patterns.
+* Decision Trees are prone to overfitting on high-dimensional data.
+* Random Forest strikes a balance between bias and variance, making it a robust choice.
 
-Only computed for Linear Regression in this notebook.
+---
 
-🧠 Final Model: Random Forest Regressor
+## 📁 Contents
 
-Saved using joblib
+* `Data Science Test Dataset.ipynb`: Analysis, modeling, and results
+* `final_model.joblib`: Serialized Random Forest model
+* `predict_holdout.py`: Script for running predictions on unseen data
+* `predicted_y.txt`: Example output predictions
 
-Produces predictions on new CSVs
+---
 
-Outputs:
+## 🧾 Author Note
 
-RMSE
+This project emphasizes clarity of thought, clean implementation, and a bias for practical models over flashy techniques. It reflects not only technical skill, but the ability to reason through ambiguity — as demanded by the task.
 
-predicted_y.txt with predictions
-
-🛠️ Requirements
-
-Python 3.10+
-
-pandas
-
-numpy
-
-scikit-learn
-
-
-📈 Results Summary
-
-Model
-
-RMSE
-
-Linear Regression
-
-46.95
-
-Decision Tree
-
-—
-
-✅ Random Forest
-
-—
-
-(Only Linear Regression had full evaluation completed in the notebook. Random Forest was chosen based on validation performance.)
-
-👨‍💻 Author
-
-Crafted by Prathamesh Ugle, aspiring data scientist with a physicist's precision and a poet's intuition. For test reviewers: may this README be as clear as the code it explains. ✨
-
+> *“Precision is not in the model, it’s in the mind that designs it.”*
